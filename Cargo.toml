@@ -1,0 +1,19 @@
+[package]
+name = "chop-shop"
+version = "0.1.0"
+edition = "2018"
+
+[[bin]]
+name = "chop-shop"
+path = "src/main.rs"
+
+[[bin]]
+name = "setup"
+path = "src/setup.rs"
+
+[dependencies]
+actix-web = "4.0"
+sqlx = { version = "0.5", features = ["runtime-tokio-rustls", "sqlite"] }
+syn = "1.0"
+dotenv = "0.15"
+tokio = { version = "1", features = ["full"] }
