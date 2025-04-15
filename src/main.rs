@@ -9,35 +9,21 @@ use dotenv::dotenv;
 use std::env;
 
 async fn greet() -> impl Responder {
-    HttpResponse::Ok().body(r#"
-        <html>
-            <body>
-                <h1>Hello, world!</h1>
-                <a href="/search">Search for items</a>
-            </body>
-        </html>
-    "#)
+    let html_content = include_str!("../templates/greet.html");
+    HttpResponse::Ok().body(html_content)
 }
 
 async fn search_page(query: Query<std::collections::HashMap<String, String>>, config: web::Data<config::Config>, pool: web::Data<SqlitePool>) -> impl Responder {
     let mut results = String::new();
     if let Some(user_input) = query.get("query") {
-        results = sql_injection::demonstrate_sql_injection(&config, pool.get_ref(), user_input).await;
+        if !user_input.trim().is_empty() {
+            results = sql_injection::demonstrate_sql_injection(&config, pool.get_ref(), user_input).await;
+        }
     }
 
-    HttpResponse::Ok().body(format!(r#"
-        <html>
-            <body>
-                <h1>Search for Items</h1>
-                <form action="/search" method="get">
-                    <input type="text" name="query" placeholder="Search...">
-                    <button type="submit">Search</button>
-                </form>
-                <h2>Results</h2>
-                <p>{}</p>
-            </body>
-        </html>
-    "#, results))
+    let html_content = include_str!("../templates/search.html");
+    let response_body = html_content.replace("{{results}}", &results);
+    HttpResponse::Ok().body(response_body)
 }
 
 #[actix_web::main]
