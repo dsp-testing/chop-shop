@@ -1,0 +1,277 @@
+/* Rusted Metal Theme for Chop Shop */
+
+:root {
+  --rust-dark: #4d2c17;
+  --rust-medium: #9c4a1a;
+  --rust-light: #c26d33;
+  --metal-gray: #606060;
+  --metal-light: #a0a0a0;
+  --text-color: #f0f0f0;
+  --accent-color: #ff5722;
+}
+
+body {
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  background-color: #121212;
+  background-image: url('https://www.transparenttextures.com/patterns/rusted-metal.png');
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  background: linear-gradient(to bottom, var(--rust-dark), var(--rust-medium));
+  border-bottom: 4px solid var(--accent-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 20px 0;
+  position: relative;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/scratched-metal.png');
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--text-color);
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: 'Impact', sans-serif;
+}
+
+.logo span {
+  color: var(--accent-color);
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+  margin: 20px 0 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 5px 10px;
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+main {
+  background-color: rgba(30, 30, 30, 0.9);
+  border-radius: 8px;
+  margin: 30px 0;
+  padding: 30px;
+  border: 1px solid var(--rust-medium);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/metal.png');
+  opacity: 0.05;
+  z-index: -1;
+}
+
+h1, h2, h3 {
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  text-transform: uppercase;
+  color: var(--rust-light);
+  margin-top: 0;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  font-size: 2.5rem;
+  border-bottom: 3px solid var(--rust-medium);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--metal-light);
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+.rust-button {
+  background: linear-gradient(to bottom, var(--rust-medium), var(--rust-dark));
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.rust-button:hover {
+  background: linear-gradient(to bottom, var(--rust-light), var(--rust-medium));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.rust-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.rust-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/metal.png');
+  opacity: 0.1;
+  z-index: -1;
+}
+
+input[type="text"] {
+  background-color: var(--metal-gray);
+  border: 2px solid var(--rust-medium);
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: var(--text-color);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px rgba(255, 87, 34, 0.4);
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.results-container {
+  background-color: rgba(40, 40, 40, 0.7);
+  border-radius: 6px;
+  padding: 20px;
+  border: 1px solid var(--rust-dark);
+}
+
+.item {
+  background: linear-gradient(to right, rgba(76, 76, 76, 0.8), rgba(60, 60, 60, 0.8));
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 4px solid var(--rust-light);
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  border-left-color: var(--accent-color);
+}
+
+footer {
+  background: linear-gradient(to top, var(--rust-dark), rgba(77, 44, 23, 0.8));
+  text-align: center;
+  padding: 20px 0;
+  border-top: 4px solid var(--rust-medium);
+  font-size: 0.9rem;
+  position: relative;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/scratched-metal.png');
+  opacity: 0.1;
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  input[type="text"] {
+    max-width: 100%;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

@@ -31,6 +31,12 @@ chop-shop-db/
 *.sqlite3
 *.sqlite-shm
 *.sqlite-wal
+*.db.backup
+*.sqlite.backup
+
+# Database diagnostic files
+db-diagnostic.json
+db-stats.json
 
 # Environment variables and local config
 .env
@@ -46,6 +52,7 @@ config.local.json
 # Log files
 logs/
 *.log
+log.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

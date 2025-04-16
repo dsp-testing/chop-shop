@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Parts - Rust Bucket Chop Shop</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Bebas+Neue&display=swap">
+    <link rel="stylesheet" href="/css/rusted-metal.css">
+    <style>
+        .form-container {
+            background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(45, 45, 45, 0.8));
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--rust-medium);
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            color: var(--metal-light);
+        }
+        
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid var(--rust-dark);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(156, 74, 26, 0.4);
+            outline: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to bottom, var(--rust-medium), var(--rust-dark));
+            color: var(--text-color);
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to bottom, var(--rust-light), var(--rust-medium));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .success {
+            background: rgba(40, 120, 40, 0.2);
+            border: 1px solid #2a2;
+            color: #8f8;
+        }
+        
+        .error {
+            background: rgba(120, 40, 40, 0.2);
+            border: 1px solid #a22;
+            color: #f88;
+        }
+        
+        .validation-error {
+            color: #f88;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .highlight-error {
+            border-color: #a22 !important;
+            box-shadow: 0 0 8px rgba(120, 40, 40, 0.4) !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">Rust <span>Bucket</span> Chop Shop</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Parts Search</a></li>
+                    <li><a href="/sell" class="active">Sell Parts</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <div class="page-header">
+                <h1>Sell Your Auto Parts</h1>
+                <p>Have auto parts to sell? List them in our inventory and reach thousands of buyers.</p>
+            </div>
+            
+            <div id="statusMessage" class="message {{message_type}}">{{status_message}}</div>
+            
+            <div class="form-container">
+                <form id="sellPartsForm" action="/sell" method="post">
+                    <div class="form-group">
+                        <label for="partName">Part Name</label>
+                        <input type="text" id="partName" name="name" placeholder="Enter the part name" required>
+                        <div id="nameError" class="validation-error">Please enter a valid part name (3-50 characters)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="partPrice">Price ($)</label>
+                        <input type="number" step="0.01" min="0.01" id="partPrice" name="price" placeholder="Enter the price" required>
+                        <div id="priceError" class="validation-error">Please enter a valid price (greater than 0)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="shipDate">Estimated Ship Date</label>
+                        <input type="date" id="shipDate" name="ship_date" required>
+                        <div id="dateError" class="validation-error">Please enter a valid future date</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="supplier">Supplier</label>
+                        <input type="text" id="supplier" name="supplier" placeholder="Enter the supplier name" required>
+                        <div id="supplierError" class="validation-error">Please enter a valid supplier name (3-50 characters)</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">List Part for Sale</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Rust Bucket Chop Shop. All parts guaranteed with a 30-day warranty.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Client-side form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('sellPartsForm');
+            const nameInput = document.getElementById('partName');
+            const priceInput = document.getElementById('partPrice');
+            const dateInput = document.getElementById('shipDate');
+            const supplierInput = document.getElementById('supplier');
+            
+            const nameError = document.getElementById('nameError');
+            const priceError = document.getElementById('priceError');
+            const dateError = document.getElementById('dateError');
+            const supplierError = document.getElementById('supplierError');
+            
+            // Set min date to today
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            let mm = today.getMonth() + 1;
+            let dd = today.getDate();
+            
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+            
+            const formattedToday = yyyy + '-' + mm + '-' + dd;
+            dateInput.setAttribute('min', formattedToday);
+            
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                
+                // Reset validation states
+                nameInput.classList.remove('highlight-error');
+                priceInput.classList.remove('highlight-error');
+                dateInput.classList.remove('highlight-error');
+                supplierInput.classList.remove('highlight-error');
+                
+                nameError.style.display = 'none';
+                priceError.style.display = 'none';
+                dateError.style.display = 'none';
+                supplierError.style.display = 'none';
+                
+                // Validate part name
+                if (nameInput.value.trim().length < 3 || nameInput.value.trim().length > 50) {
+                    nameInput.classList.add('highlight-error');
+                    nameError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate price
+                if (isNaN(priceInput.value) || parseFloat(priceInput.value) <= 0) {
+                    priceInput.classList.add('highlight-error');
+                    priceError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate ship date
+                const selectedDate = new Date(dateInput.value);
+                if (!dateInput.value || selectedDate < today) {
+                    dateInput.classList.add('highlight-error');
+                    dateError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate supplier
+                if (supplierInput.value.trim().length < 3 || supplierInput.value.trim().length > 50) {
+                    supplierInput.classList.add('highlight-error');
+                    supplierError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

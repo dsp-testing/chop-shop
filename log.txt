@@ -1,1 +1,0 @@
-Executed query: SELECT * FROM items WHERE name LIKE '%Pedal%'

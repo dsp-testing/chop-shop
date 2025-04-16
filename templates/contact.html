@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Rust Bucket Chop Shop</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Bebas+Neue&display=swap">
+    <link rel="stylesheet" href="/css/rusted-metal.css">
+    <style>
+        .form-container {
+            background: linear-gradient(135deg, rgba(60, 60, 60, 0.8), rgba(45, 45, 45, 0.8));
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--rust-medium);
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            color: var(--metal-light);
+        }
+        
+        .form-group input, 
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid var(--rust-dark);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(156, 74, 26, 0.4);
+            outline: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to bottom, var(--rust-medium), var(--rust-dark));
+            color: var(--text-color);
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to bottom, var(--rust-light), var(--rust-medium));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .success {
+            background: rgba(40, 120, 40, 0.2);
+            border: 1px solid #2a2;
+            color: #8f8;
+        }
+        
+        .error {
+            background: rgba(120, 40, 40, 0.2);
+            border: 1px solid #a22;
+            color: #f88;
+        }
+        
+        .validation-error {
+            color: #f88;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .highlight-error {
+            border-color: #a22 !important;
+            box-shadow: 0 0 8px rgba(120, 40, 40, 0.4) !important;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .contact-block {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            background: rgba(60, 60, 60, 0.5);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-block h3 {
+            margin-top: 0;
+            color: var(--rust-light);
+            border-bottom: 1px solid rgba(156, 74, 26, 0.3);
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">Rust <span>Bucket</span> Chop Shop</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Parts Search</a></li>
+                    <li><a href="/sell">Sell Parts</a></li>
+                    <li><a href="/contact" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <div class="page-header">
+                <h1>Contact Us</h1>
+                <p>Have questions or need assistance? Reach out to our team using the form below.</p>
+            </div>
+            
+            <div id="statusMessage" class="message {{message_type}}">{{status_message}}</div>
+            
+            <div class="contact-info">
+                <div class="contact-block">
+                    <h3>Our Location</h3>
+                    <p>8450 Hubbers Avenue<br>Automotive District<br>Detroit, MI 48202</p>
+                </div>
+                <div class="contact-block">
+                    <h3>Business Hours</h3>
+                    <p>Monday - Friday: 8AM - 7PM<br>Saturday: 9AM - 5PM<br>Sunday: Closed</p>
+                </div>
+                <div class="contact-block">
+                    <h3>Phone & Email</h3>
+                    <p>Phone: (412) 555-0127<br>Email: parts@rustbucketchopshop.com</p>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <form id="contactForm" action="/contact" method="post">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="full_name" placeholder="Enter your full name" required>
+                        <div id="nameError" class="validation-error">Please enter your full name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        <div id="emailError" class="validation-error">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="What is your message about?" required>
+                        <div id="subjectError" class="validation-error">Please enter a subject</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="creditCard">Credit Card Number (for payment-related inquiries)</label>
+                        <input type="text" id="creditCard" name="credit_card" placeholder="Enter your credit card number (optional)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+                        <div id="messageError" class="validation-error">Please enter your message</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Rust Bucket Chop Shop. All parts guaranteed with a 30-day warranty.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Client-side form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const nameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            const subjectInput = document.getElementById('subject');
+            const messageInput = document.getElementById('message');
+            
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const subjectError = document.getElementById('subjectError');
+            const messageError = document.getElementById('messageError');
+            
+            // Show status message if present
+            const statusMessage = document.getElementById('statusMessage');
+            if (statusMessage.textContent.trim() !== '{{status_message}}' && 
+                statusMessage.textContent.trim() !== '') {
+                statusMessage.style.display = 'block';
+            }
+            
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                
+                // Reset validation states
+                nameInput.classList.remove('highlight-error');
+                emailInput.classList.remove('highlight-error');
+                subjectInput.classList.remove('highlight-error');
+                messageInput.classList.remove('highlight-error');
+                
+                nameError.style.display = 'none';
+                emailError.style.display = 'none';
+                subjectError.style.display = 'none';
+                messageError.style.display = 'none';
+                
+                // Validate name
+                if (nameInput.value.trim() === '') {
+                    nameInput.classList.add('highlight-error');
+                    nameError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate email
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(emailInput.value)) {
+                    emailInput.classList.add('highlight-error');
+                    emailError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate subject
+                if (subjectInput.value.trim() === '') {
+                    subjectInput.classList.add('highlight-error');
+                    subjectError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Validate message
+                if (messageInput.value.trim() === '') {
+                    messageInput.classList.add('highlight-error');
+                    messageError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
