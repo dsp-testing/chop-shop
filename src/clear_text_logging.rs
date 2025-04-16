@@ -1,7 +1,8 @@
 use crate::config::Config;
 use std::fs::File;
-use std::io::{self, Write};
+use std::io::Write;
 
+#[allow(dead_code)]
 pub fn demonstrate_clear_text_logging(config: &Config) {
     let sensitive_data = "user_password=123456";
     

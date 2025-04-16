@@ -1,4 +1,3 @@
-use crate::config::Config;
 use sqlx::SqlitePool;
 use actix_web::{web, Responder, HttpResponse};
 use chrono::NaiveDate;

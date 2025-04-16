@@ -1,7 +1,7 @@
 use crate::config::Config;
 use sqlx::SqlitePool;
 use std::fs::File;
-use std::io::{self, Write};
+use std::io::Write;
 use sqlx::Row;
 
 pub async fn demonstrate_sql_injection(config: &Config, pool: &SqlitePool, user_input: &str) -> String {

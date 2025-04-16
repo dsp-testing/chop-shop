@@ -1,5 +1,6 @@
 #[derive(Clone)]
 pub struct Config {
+    #[allow(dead_code)]
     pub database_url: String,
     pub log_file: String,
 }
