@@ -4,13 +4,25 @@ use std::fs::File;
 use std::io::Write;
 use sqlx::Row;
 
+fn must_use<T>(x: T) -> T {
+    x
+}
+
 pub async fn demonstrate_sql_injection(config: &Config, pool: &SqlitePool, user_input: &str) -> String {
     // Special case for "all" - retrieve all parts in the inventory
     let query = if user_input == "all" {
         "SELECT * FROM items".to_string()
     } else {
         // Directly concatenate user_input into the SQL query string
-        format!("SELECT * FROM items WHERE name LIKE '%{}%'", user_input)
+        let q=format!("SELECT * FROM items WHERE name LIKE '%{}%'", user_input);
+        q
+        // must_use({
+        //     let res = std::fmt::format(format_args!(
+        //         "SELECT * FROM items WHERE name LIKE '%{}%'",
+        //         user_input
+        //     ));
+        //     res
+        // })
     };
 
     // Simulate executing the query

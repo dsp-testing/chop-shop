@@ -16,19 +16,19 @@ async fn greet() -> impl Responder {
     HttpResponse::Ok().content_type("text/html").body(html_content)
 }
 
-async fn search_page(query: Query<std::collections::HashMap<String, String>>, config: web::Data<config::Config>, pool: web::Data<SqlitePool>) -> impl Responder {
+async fn search_page(Query(user_input): Query<String>, config: web::Data<config::Config>, pool: web::Data<SqlitePool>) -> impl Responder {
     let mut results = String::new();
     let mut search_performed = false;
     let mut search_term = String::new();
     
-    if let Some(user_input) = query.get("query") {
-        if !user_input.trim().is_empty() {
-            search_performed = true;
-            // No HTML escaping here - pass the raw input directly
-            search_term = user_input.clone();
-            results = sql_injection::demonstrate_sql_injection(&config, pool.get_ref(), user_input).await;
-        }
+    
+    if !user_input.trim().is_empty() {
+        search_performed = true;
+        // No HTML escaping here - pass the raw input directly
+        search_term = user_input.clone();
+        results = sql_injection::demonstrate_sql_injection(&config, pool.get_ref(), &user_input).await;
     }
+    
 
     // Create response with direct string replacement (no HTML escaping)
     let html_content = include_str!("../templates/search.html");
